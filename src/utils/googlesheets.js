@@ -1,5 +1,6 @@
-const { GoogleSpreadsheet } = require('google-spreadsheet');
-const creds = require('./credentials.json');
+
+import { GoogleSpreadsheet } from 'google-spreadsheet';
+import  creds from './credentials.json';
 
 async function appendSpreadsheet(newRow) {
   const doc = new GoogleSpreadsheet('1EnXsMernyQFk1DmMgGT_rSXFwTOUtjzKWNltXD3zic0');
@@ -11,6 +12,4 @@ async function appendSpreadsheet(newRow) {
   return result;
 };
 
-module.exports = {
-    appendSpreadsheet,
-};
+export default appendSpreadsheet

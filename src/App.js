@@ -1,7 +1,7 @@
 
 import './App.css';
 import { useState } from "react";
-import {appendSpreadsheet} from './utils/googlesheets'
+import appendSpreadsheet from './utils/googlesheets'
 
 function App() {
   const [name, setName] = useState("");
