@@ -1,45 +1,68 @@
+import styled from "styled-components";
+import { useState, useRef } from "react";
+import Background from "./assets/background.svg";
+import Header from "./components/Header.js";
+import Landing from "./components/Landing.js";
+import LightBox from "./components/LightBox.js";
+import Form from "./components/Form.js";
 
-import './App.css';
-import { useState } from "react";
-import appendSpreadsheet from './utils/googlesheets'
+// import appendSpreadsheet from './utils/googlesheets'
+
+const Container = styled.div`
+  background: rgba(0, 153, 68, 1);
+  width: 100vw;
+  min-height: 100vh;
+  background-position: bottom;
+  background-size: cover;
+  position: relative;
+  @media screen and (min-width: 768px) {
+    background-image: url(${Background});
+  }
+`;
+
+const LightBoxLink = styled.span`
+  position: absolute;
+  transform: translate(-50%, 0);
+  bottom: 16px;
+  left: 50%;
+  font-family: "Noto Sans TC";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  text-decoration-line: underline;
+  color: #ffffff;
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+    line-height: 20px;
+    bottom: 52px;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 function App() {
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-  function handleChangeAge(e) {
-    setAge(e.target.value)
-  }
-
-  function handleSubmit(e) {
-   e.preventDefault()
-   appendSpreadsheet({name, age})
-  }
+  const [showLightBox, setShowLightBox] = useState(false);
+  const [step, setStep] = useState(0);
+  const lightBoxLinkRef = useRef();
 
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <p>姓名：<input name='name' value={name} onChange={handleChangeName}></input></p>
-        <p>年紀：
-          <p>
-          <input type="radio" id="18" name="age" value='18' checked={age === '18'} onChange={handleChangeAge}/>
-          <label for="18">18 以下</label>
-          </p>
-          <p>
-          <input type="radio" id="30" name="age" value="30" checked={age === '30'} onChange={handleChangeAge}/>
-          <label for="30">18~30</label>
-          </p>
-          <p>
-          <input type="radio" id="40" name="age" value="40" checked={age === '40'} onChange={handleChangeAge}/>
-          <label for="40">30 以上</label>
-          </p>
-        </p>
-        <button>送出</button>
-      </form>
-    </div>
+    <Container>
+      <Header />
+      {step === 0 && <Landing setStep={setStep} />}
+      {step !== 0 && <Form />}
+      <LightBoxLink onClick={() => setShowLightBox(true)} ref={lightBoxLinkRef}>
+        活動辦法與個資說明
+      </LightBoxLink>
+      {showLightBox && (
+        <LightBox
+          setShowLightBox={setShowLightBox}
+          lightBoxLinkRef={lightBoxLinkRef}
+        />
+      )}
+    </Container>
   );
 }
 
