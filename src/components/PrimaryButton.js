@@ -22,8 +22,24 @@ const Button = styled.span`
     background: #ffed00;
     color: #004f9f;
   }
+
+  ${(props) =>
+    props.disabled &&
+    `
+    background: #6C6C6C;
+    color: #D9D9D9;
+    &:hover {
+      cursor: not-allowed;
+      background: #6C6C6C;
+      color: #D9D9D9;
+    }
+    `}
 `;
 
-export default function PrimaryButton({ title }) {
-  return <Button>{title}</Button>;
+export default function PrimaryButton({ title, handleClick, disabled }) {
+  return (
+    <Button onClick={handleClick} disabled={disabled}>
+      {title}
+    </Button>
+  );
 }

@@ -6,20 +6,24 @@ const Background = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 20;
+  z-index: 50;
   background: rgba(0, 153, 68, 1);
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100%;
+  height: fit-content;
   display: flex;
   justify-content: center;
+  z-index: 110;
 `;
 
 const Container = styled.div`
   margin: 69px 14px;
   width: calc(100% - 28px);
+  height: fit-content;
   background: #fff;
   padding: 20px 16px;
   position: relative;
+  z-index: 120;
   @media screen and (min-width: 768px) {
     padding: 20px 46px;
     max-width: 731px;
@@ -75,14 +79,29 @@ const Content = styled.p`
   }
 `;
 
-export default function LightBox({ setShowLightBox, lightBoxLinkRef }) {
+const Mask = styled.div`
+  width: ${(props) => props.width};
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: #77bc20;
+  z-index: 105;
+`;
+
+export default function LightBox({
+  setShowLightBox,
+  lightBoxLinkRef,
+  lightBoxLinkOnFormRef,
+  width,
+}) {
   const lightBoxRef = useRef();
 
   function handleClick(e) {
-    console.log();
     if (
       !lightBoxRef?.current?.contains(e.target) &&
-      !lightBoxLinkRef.current?.contains(e.target)
+      !lightBoxLinkRef.current?.contains(e.target) &&
+      !lightBoxLinkOnFormRef.current?.contains(e.target)
     ) {
       setShowLightBox(false);
     }
@@ -95,6 +114,7 @@ export default function LightBox({ setShowLightBox, lightBoxLinkRef }) {
 
   return (
     <Background>
+      <Mask width={width} />
       <Container ref={lightBoxRef}>
         <SvgClose onClick={() => setShowLightBox(false)} />
         <Title>活動辦法與個資說明</Title>
