@@ -18,7 +18,7 @@ const Label = styled.label`
     margin-top: 8px;
     max-width: 200px;
     flex-wrap: wrap;
-      & + & {
+      &:not(:first-child) {
         margin-left: 4px;
         @media screen and (min-width: 768px) {
           margin-left: 12px;

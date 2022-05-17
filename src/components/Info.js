@@ -84,6 +84,7 @@ export default function Info({
   validatePhone,
   validateEmail,
   validation,
+  step,
 }) {
   function handleChangeInfoValue(e) {
     const { name, value } = e.target;
@@ -101,8 +102,12 @@ export default function Info({
 
   return (
     <InfoContainter>
-      本問卷將於6/15公佈得獎名單，請留下您的聯絡方式，後續將由專人與您聯繫
-      <InfoHint>＊所有選項皆為必填</InfoHint>
+      {step === 15 && (
+        <>
+          本問卷將於6/15公佈得獎名單，請留下您的聯絡方式，後續將由專人與您聯繫
+          <InfoHint>＊所有選項皆為必填</InfoHint>
+        </>
+      )}
       <QuestionWrapper>
         {questionItems.map((item, index) => {
           return (

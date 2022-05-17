@@ -16,7 +16,7 @@ const Label = styled.label`
     props.isInfo &&
     `
     margin-top: 8px;
-      & + & {
+      &:not(:first-child) {
         margin-left: 4px;
         @media screen and (min-width: 768px) {
           margin-left: 20px;
@@ -94,6 +94,7 @@ export default function RadioInput({
   isChecked,
   isInfo,
 }) {
+  console.log({ name, isInfo });
   return (
     <Label isInfo={isInfo}>
       <Input

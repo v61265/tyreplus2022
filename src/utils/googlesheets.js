@@ -3,7 +3,7 @@ import creds from "./credentials.json";
 
 async function appendSpreadsheet(newRow) {
   const doc = new GoogleSpreadsheet(
-    "1EnXsMernyQFk1DmMgGT_rSXFwTOUtjzKWNltXD3zic"
+    "1EnXsMernyQFk1DmMgGT_rSXFwTOUtjzKWNltXD3zic0"
   );
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();

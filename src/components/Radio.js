@@ -22,6 +22,7 @@ export default function Radio({ question, setAnswers, answers }) {
             name={question.name}
             title={option}
             value={option}
+            isInfo={false}
             isChecked={option === answers[question.name]}
             onChange={(e) => {
               setAnswers({ ...answers, [question.name]: e.target.value });

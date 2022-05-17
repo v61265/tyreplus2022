@@ -5,7 +5,7 @@ import Textarea from "./Textarea";
 import Info from "./Info";
 
 const Container = styled.div`
-  padding: 45px;
+  padding: 0 45px;
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 900;
@@ -15,7 +15,6 @@ const Container = styled.div`
   color: #ffffff;
   position: relative;
   z-index: 100;
-
   @media screen and (min-width: 768px) {
     font-size: 24px;
     line-height: 35px;
@@ -29,8 +28,13 @@ const ProgressBar = styled.div`
   margin: 0 auto;
   justify-content: center;
   margin-bottom: 60px;
+  min-width: 800px;
+  z-index: 100;
+  position: relative;
+  padding-top: 45px;
   @media screen and (min-width: 768px) {
     margin-bottom: 120px;
+    padding-top: 100px;
   }
 `;
 
@@ -70,61 +74,65 @@ export default function Form({
   }
 
   return (
-    <Container>
+    <>
       {
         <ProgressBar>
-          {step !== 14 &&
+          {step !== 15 &&
             questions.map((item, index) => {
               return <ProgressDot isActive={step >= index + 1} key={index} />;
             })}
         </ProgressBar>
       }
-      <div>
-        {questions.map((item, index) => {
-          if (step !== index + 1) return "";
-          switch (item.type) {
-            case "radio":
-              return (
-                <Radio
-                  question={item}
-                  key={index}
-                  setAnswers={setAnswers}
-                  answers={answers}
-                />
-              );
-            case "option":
-              return (
-                <Option
-                  question={item}
-                  key={index}
-                  setAnswers={setAnswers}
-                  answers={answers}
-                />
-              );
-            case "info":
-              return (
-                <Info
-                  questionItems={item.questions}
-                  key={index}
-                  setAnswers={setAnswers}
-                  answers={answers}
-                  validatePhone={validatePhone}
-                  validateEmail={validateEmail}
-                  validation={validation}
-                />
-              );
-            default:
-              return (
-                <Textarea
-                  question={item}
-                  key={index}
-                  setAnswers={setAnswers}
-                  answers={answers}
-                />
-              );
-          }
-        })}
-      </div>
-    </Container>
+
+      <Container>
+        <div>
+          {questions.map((item, index) => {
+            if (step !== index + 1) return "";
+            switch (item.type) {
+              case "radio":
+                return (
+                  <Radio
+                    question={item}
+                    key={index}
+                    setAnswers={setAnswers}
+                    answers={answers}
+                  />
+                );
+              case "option":
+                return (
+                  <Option
+                    question={item}
+                    key={index}
+                    setAnswers={setAnswers}
+                    answers={answers}
+                  />
+                );
+              case "info":
+                return (
+                  <Info
+                    questionItems={item.questions}
+                    key={index}
+                    setAnswers={setAnswers}
+                    answers={answers}
+                    validatePhone={validatePhone}
+                    validateEmail={validateEmail}
+                    validation={validation}
+                    step={step}
+                  />
+                );
+              default:
+                return (
+                  <Textarea
+                    question={item}
+                    key={index}
+                    setAnswers={setAnswers}
+                    answers={answers}
+                  />
+                );
+            }
+          })}
+        </div>
+      </Container>
+    </>
   );
 }

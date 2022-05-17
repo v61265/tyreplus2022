@@ -12,6 +12,69 @@ import Success from "./components/Success";
 
 const QUESTIONS = [
   {
+    name: "q0",
+    type: "info",
+    questions: [
+      {
+        name: "area",
+        type: "radio",
+        question: "所在地區",
+        options: ["北部", "中部", "南部", "東部"],
+      },
+      {
+        name: "type",
+        type: "radio",
+        question: "駕駛車種",
+        options: ["歐系", "日系", "韓系", "國產"],
+      },
+      {
+        name: "age",
+        type: "radio",
+        question: "駕駛車齡",
+        options: ["1-5年", "5-10年", "10年以上", "20年以上"],
+      },
+      {
+        name: "seniority",
+        type: "radio",
+        question: "從業年資",
+        options: ["1-5年", "5-10年", "10-15年", "15年以上"],
+      },
+      {
+        name: "turnover",
+        type: "radio",
+        question: "月均營業額",
+        options: ["1萬以下", "1-3萬", "3-5萬", "5萬以上"],
+      },
+      {
+        name: "fleet",
+        type: "option",
+        question: "所屬多元計程車車隊 (可複選)",
+        options: [
+          {
+            name: "uber",
+            value: "Uber",
+          },
+          {
+            name: "yoxi",
+            value: "Yoxi",
+          },
+          {
+            name: "lineTaxi",
+            value: "LineTaxi",
+          },
+          {
+            name: "55688",
+            value: "台灣大車隊",
+          },
+          {
+            name: "other",
+            value: "其他",
+          },
+        ],
+      },
+    ],
+  },
+  {
     name: "q1",
     type: "radio",
     question: "保養頻率",
@@ -183,63 +246,6 @@ const QUESTIONS = [
         type: "text",
         hint: "請輸入有效的 Email 地址",
       },
-      {
-        name: "area",
-        type: "radio",
-        question: "所在地區",
-        options: ["北部", "中部", "南部", "東部"],
-      },
-      {
-        name: "type",
-        type: "radio",
-        question: "駕駛車種",
-        options: ["歐系", "日系", "韓系", "國產"],
-      },
-      {
-        name: "age",
-        type: "radio",
-        question: "駕駛車齡",
-        options: ["1-5年", "5-10年", "10年以上", "20年以上"],
-      },
-      {
-        name: "seniority",
-        type: "radio",
-        question: "從業年資",
-        options: ["1-5年", "5-10年", "10-15年", "15年以上"],
-      },
-      {
-        name: "turnover",
-        type: "radio",
-        question: "月均營業額",
-        options: ["1萬以下", "1-3萬", "3-5萬", "5萬以上"],
-      },
-      {
-        name: "fleet",
-        type: "option",
-        question: "所屬多元計程車車隊 (可複選)",
-        options: [
-          {
-            name: "uber",
-            value: "Uber",
-          },
-          {
-            name: "yoxi",
-            value: "Yoxi",
-          },
-          {
-            name: "lineTaxi",
-            value: "LineTaxi",
-          },
-          {
-            name: "55688",
-            value: "台灣大車隊",
-          },
-          {
-            name: "other",
-            value: "其他",
-          },
-        ],
-      },
     ],
   },
 ];
@@ -327,8 +333,8 @@ function App() {
   });
 
   useEffect(() => {
-    if (!step || step > 14) return;
-    if (step === 14) {
+    if (!step || step > 15) return;
+    if (step === 15) {
       setValidation({
         ...validation,
         all: !Object.values(answers).includes(""),
@@ -345,7 +351,22 @@ function App() {
       return;
     }
 
-    const answersThisPage = answers[`q${step}`];
+    if (step === 1) {
+      if (
+        answers.age &&
+        answers.area &&
+        Object.values(answers.fleet).includes(true) &&
+        answers.type &&
+        answers.seniority &&
+        answers.turnover
+      ) {
+        return setCanClickNext(true);
+      } else {
+        return setCanClickNext(false);
+      }
+    }
+
+    const answersThisPage = answers[`q${step - 1}`];
     if (
       (typeof answersThisPage === "string" && answersThisPage) ||
       Object.values(answersThisPage).includes(true)
@@ -395,21 +416,22 @@ function App() {
       console.log(e);
       alert("oops!好像出錯囉!");
       window.open("/");
+      window.close();
     }
 
     setHasSubmit(true);
   }
 
   useEffect(() => {
-    if (step === 15) handleSubmit();
+    if (step === 16 && !hasSubmit) handleSubmit();
   }, [step]);
 
   return (
     <Container step={step}>
-      {step !== 0 && <Mask width={`${(100 / 15) * (15 - step)}vw`} />}
+      {step !== 0 && <Mask width={`${(100 / 16) * (16 - step)}vw`} />}
       <Header />
       {step === 0 && !hasSubmit && <Landing setStep={setStep} />}
-      {step !== 0 && step <= 14 && !hasSubmit && (
+      {step !== 0 && step <= 15 && !hasSubmit && (
         <>
           {step !== 0 && (
             <Form
@@ -423,7 +445,7 @@ function App() {
               setValidation={setValidation}
             />
           )}
-          {step === 14 && (
+          {step === 15 && (
             <div ref={lightBoxLinkOnFormRef}>
               <Agreement
                 agree={agree}
@@ -474,7 +496,7 @@ function App() {
               showLightBox={showLightBox}
               lightBoxLinkRef={lightBoxLinkRef}
               lightBoxLinkOnFormRef={lightBoxLinkOnFormRef}
-              width={`${step ? (100 / 15) * (15 - step) : 0}vw`}
+              width={`${step ? (100 / 16) * (16 - step) : 0}vw`}
             />
           )}
         </>

@@ -63,7 +63,7 @@ const Cover = styled.img`
   padding-bottom: 66%;
   background: url(${CoverMobileImg});
   background-size: cover;
-  @media screen and (min-width: 320px) {
+  @media screen and (min-width: 768px) {
     padding-bottom: 42%;
     background: url(${CoverImg});
     background-size: cover;
@@ -82,9 +82,13 @@ export default function Landing({ setStep }) {
         <LandingDescriptionMobile>
           你是以車為業的人嗎？你是愛車如命的人嗎？
           <br />
-          你的保修廠符合你呵護愛車的期待嗎？你正在尋覓更美好的保養體驗嗎？
+          你的保修廠符合你呵護愛車的期待嗎？
           <br />
-          馳加徵求百名多元計程車司機參與問卷調查，分享你的保養經驗
+          你正在尋覓更美好的保養體驗嗎？
+          <br />
+          馳加徵求百名多元計程車司機參與問卷調查，
+          <br />
+          分享你的保養經驗
           <br />
           活動將抽出十位幸運車主來一場免費五星保養及換胎體驗
           <br />
