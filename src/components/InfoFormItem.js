@@ -55,7 +55,12 @@ export default function InfoFormItem({
     case "text":
       return (
         <TextWrapper>
-          <Text type='text' onChange={handleChangeInfoValue} name={name} />
+          <Text
+            type='text'
+            onChange={handleChangeInfoValue}
+            name={name}
+            autoComplete='off'
+          />
           {!isValid && hint && <Hint>{hint}</Hint>}
         </TextWrapper>
       );

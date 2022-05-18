@@ -63,10 +63,12 @@ const Cover = styled.img`
   padding-bottom: 66%;
   background: url(${CoverMobileImg});
   background-size: cover;
+  transform: translate(0, -15%);
   @media screen and (min-width: 768px) {
     padding-bottom: 42%;
     background: url(${CoverImg});
     background-size: cover;
+    transform: translate(0);
   }
 `;
 

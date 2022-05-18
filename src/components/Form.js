@@ -28,13 +28,13 @@ const ProgressBar = styled.div`
   margin: 0 auto;
   justify-content: center;
   margin-bottom: 60px;
-  min-width: 800px;
   z-index: 100;
   position: relative;
   padding-top: 45px;
   @media screen and (min-width: 768px) {
     margin-bottom: 120px;
     padding-top: 100px;
+    min-width: 800px;
   }
 `;
 

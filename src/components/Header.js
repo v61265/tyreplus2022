@@ -69,17 +69,35 @@ const IconItem = styled.div`
   }
 `;
 
+const MirrorLogo = styled.img`
+  width: 70px;
+  @media screen and (min-width: 768px) {
+    width: 90px;
+  }
+`;
+
+const TyreLogo = styled.a`
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translate(-50%, 0);
+`;
+
 export default function Header() {
   const [showIcons, setShowIcons] = useState(false);
   return (
     <>
       <HeaderContainer>
         <a target='_blank' href='https://www.mirrormedia.mg/' rel='noreferrer'>
-          <img alt='mirror' src={MirrorIcon} />
+          <MirrorLogo alt='mirror' src={MirrorIcon} />
         </a>
-        <a target='_blank' href='https://tyreplus.com.tw/' rel='noreferrer'>
+        <TyreLogo
+          target='_blank'
+          href='https://tyreplus.com.tw/'
+          rel='noreferrer'
+        >
           <img alt='tyre' src={TyreIcon} />
-        </a>
+        </TyreLogo>
         <Share
           alt='share'
           src={ShareIcon}

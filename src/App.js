@@ -455,7 +455,7 @@ function App() {
             </div>
           )}
           <ButtonContainer>
-            {step !== 0 && 1 > step && step < 13 && (
+            {step !== 0 && 1 < step && step < 13 && (
               <PrimaryButton
                 title='上一題'
                 handleClick={() => setStep(step - 1)}

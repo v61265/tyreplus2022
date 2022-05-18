@@ -94,7 +94,6 @@ export default function RadioInput({
   isChecked,
   isInfo,
 }) {
-  console.log({ name, isInfo });
   return (
     <Label isInfo={isInfo}>
       <Input
