@@ -63,16 +63,9 @@ export default function Form({
   answers,
   validation,
   setValidation,
+  validatePhone,
+  validateEmail,
 }) {
-  function validatePhone() {
-    const regex = /((?=(09))[0-9]{9})$/;
-    setValidation({ ...validation, phone: regex.test(answers.phone) });
-  }
-  function validateEmail() {
-    const regex = /\S+@\S+\.\S+/;
-    setValidation({ ...validation, email: regex.test(answers.email) });
-  }
-
   return (
     <>
       {

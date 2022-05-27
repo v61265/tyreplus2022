@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TyreIcon from "../assets/tyre-icon.svg";
-import MirrorIcon from "../assets/mirror-icon.svg";
+import HomeIcon from "../assets/home.png";
 import ShareIcon from "../assets/share-icon.svg";
 import FbIcon from "../assets/fb.svg";
 import LineIcon from "../assets/line.png";
@@ -69,28 +69,32 @@ const IconItem = styled.div`
   }
 `;
 
-const MirrorLogo = styled.img`
-  width: 70px;
-  @media screen and (min-width: 768px) {
-    width: 90px;
+const HomeLogo = styled.img`
+  height: 35px;
+  &:hover {
+    cursor: pointer;
   }
 `;
 
 const TyreLogo = styled.a`
   position: absolute;
-  top: 8px;
+  top: 12px;
   left: 50%;
   transform: translate(-50%, 0);
+  @media screen and (min-width: 768px) {
+    top: 16px;
+  }
 `;
 
 export default function Header() {
   const [showIcons, setShowIcons] = useState(false);
+  function reload() {
+    window.location.reload();
+  }
   return (
     <>
       <HeaderContainer>
-        <a target='_blank' href='https://www.mirrormedia.mg/' rel='noreferrer'>
-          <MirrorLogo alt='mirror' src={MirrorIcon} />
-        </a>
+        <HomeLogo alt='mirror' src={HomeIcon} onClick={reload} />
         <TyreLogo
           target='_blank'
           href='https://tyreplus.com.tw/'

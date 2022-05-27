@@ -63,7 +63,7 @@ const Cover = styled.img`
   padding-bottom: 66%;
   background: url(${CoverMobileImg});
   background-size: cover;
-  transform: translate(0, -15%);
+  transform: translate(0, -10%);
   @media screen and (min-width: 768px) {
     padding-bottom: 42%;
     background: url(${CoverImg});
@@ -84,7 +84,7 @@ export default function Landing({ setStep }) {
         <LandingDescriptionMobile>
           你是以車為業的人嗎？你是愛車如命的人嗎？
           <br />
-          你的保修廠符合你呵護愛車的期待嗎？
+          你的保養廠符合你呵護愛車的期待嗎？
           <br />
           你正在尋覓更美好的保養體驗嗎？
           <br />
@@ -101,7 +101,7 @@ export default function Landing({ setStep }) {
         </LandingDescriptionMobile>
         <LandingDescriptionDesktop>
           你是以車為業的人嗎？你是愛車如命的人嗎？
-          你的保修廠符合你呵護愛車的期待嗎？你正在尋覓更美好的保養體驗嗎？
+          你的保養廠符合你呵護愛車的期待嗎？你正在尋覓更美好的保養體驗嗎？
           <br />
           馳加徵求百名多元計程車司機參與問卷調查，分享你的保養經驗
           <br />

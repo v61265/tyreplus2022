@@ -32,7 +32,7 @@ export default function Success() {
     <SuccessContainer>
       <Thanks>感謝您的參與 !</Thanks>
       <PrimaryButton
-        title='前往馳加官網'
+        title='我想更了解馳加'
         handleClick={() => window.open("https://tyreplus.com.tw/", "_blank")}
       />
     </SuccessContainer>

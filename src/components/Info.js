@@ -35,6 +35,9 @@ const QuestionRow = styled.div`
   }}
   & + & {
     margin-top: 8px;
+    ${(props) => {
+      if (props.step === 1) return "margin-top: 32px;";
+    }}
   }
   @media screen and (min-width: 768px) {
     font-size: 20px;
@@ -45,14 +48,32 @@ const QuestionRow = styled.div`
     }}
     & + & {
       margin-top: 12px;
+      ${(props) => {
+        if (props.step === 1) return "margin-top: 28px;";
+      }}
     }
   }
 `;
 
 const QuestionTitle = styled.div`
   min-width: 104px;
+  margin-bottom: 10px;
+  li span {
+    position: relative;
+    left: -10px;
+  }
   ${(props) => {
     if (props.title === "月均營業額") return "margin-right: 24px;";
+  }}
+  ${(props) => {
+    if (props.step === 1)
+      return `
+      font-size: 16px;
+      font-weight: 600;
+      @media screen and (min-width: 768px) {
+        font-size: 24px;
+      }
+    `;
   }}
 `;
 
@@ -86,11 +107,11 @@ export default function Info({
   validation,
   step,
 }) {
-  function handleChangeInfoValue(e) {
+  async function handleChangeInfoValue(e) {
     const { name, value } = e.target;
-    if (name === "phone") validatePhone();
-    if (name === "email") validateEmail();
-    setAnswers({ ...answers, [name]: value });
+    await setAnswers({ ...answers, [name]: value });
+    if (name === "phone") validatePhone(value);
+    if (name === "email") validateEmail(value);
   }
   function handleOnChangeInfoBoolean(e) {
     const { value } = e.target;
@@ -111,9 +132,14 @@ export default function Info({
       <QuestionWrapper>
         {questionItems.map((item, index) => {
           return (
-            <QuestionRow type={item.type} key={index}>
-              <QuestionTitle title={item.question}>
-                {item.question}
+            <QuestionRow type={item.type} key={index} step={step}>
+              <QuestionTitle title={item.question} step={step}>
+                {step === 15 && item.question}
+                {step === 1 && (
+                  <li>
+                    <span>{item.question}</span>
+                  </li>
+                )}
               </QuestionTitle>
               <OptionWrapper isOption={item.type === "option"}>
                 <InfoFormItem

@@ -14,8 +14,8 @@ const TextareaInput = styled.textarea`
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 17px;
+  font-size: 16px;
+  line-height: 24px;
   color: #009944;
   padding: 8px;
   :focus {

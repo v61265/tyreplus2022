@@ -25,25 +25,13 @@ const QUESTIONS = [
         name: "type",
         type: "radio",
         question: "駕駛車種",
-        options: ["歐系", "日系", "韓系", "國產"],
+        options: ["歐系", "美系", "日系", "韓系", "國產"],
       },
       {
         name: "age",
         type: "radio",
         question: "駕駛車齡",
         options: ["1-5年", "5-10年", "10年以上", "20年以上"],
-      },
-      {
-        name: "seniority",
-        type: "radio",
-        question: "從業年資",
-        options: ["1-5年", "5-10年", "10-15年", "15年以上"],
-      },
-      {
-        name: "turnover",
-        type: "radio",
-        question: "月均營業額",
-        options: ["1萬以下", "1-3萬", "3-5萬", "5萬以上"],
       },
       {
         name: "fleet",
@@ -72,6 +60,18 @@ const QUESTIONS = [
           },
         ],
       },
+      {
+        name: "seniority",
+        type: "radio",
+        question: "從業年資",
+        options: ["1-5年", "5-10年", "10-15年", "15年以上"],
+      },
+      {
+        name: "turnover",
+        type: "radio",
+        question: "月均營業額",
+        options: ["4萬以下", "4萬-6萬", "6萬-8萬", "8萬-10萬", "10萬以上"],
+      },
     ],
   },
   {
@@ -95,7 +95,7 @@ const QUESTIONS = [
       },
       {
         name: "q2c",
-        value: "煞車油",
+        value: "剎車油",
       },
       {
         name: "q2d",
@@ -119,7 +119,7 @@ const QUESTIONS = [
     name: "q3",
     type: "option",
     question:
-      "當車輛需要保修時，以下哪一項是你挑選專業保養廠的主要關鍵？ (可複選)",
+      "當車輛需要保養時，以下哪一項是你挑選專業保養廠的主要關鍵？ (可複選)",
     options: [
       {
         name: "q3a",
@@ -138,7 +138,7 @@ const QUESTIONS = [
   {
     name: "q4",
     type: "option",
-    question: "當愛車交付保修，你期待技師的維修技術與保護細節？ (可複選)",
+    question: "當愛車交付保養，你期待技師的保養技術與保護細節？ (可複選)",
     options: [
       {
         name: "q4a",
@@ -146,7 +146,7 @@ const QUESTIONS = [
       },
       {
         name: "q4b",
-        value: "維修技師在維修過程中，盡可能保護我的車輛",
+        value: "維修技師在保養過程中，盡可能保護我的車輛",
       },
       {
         name: "q4c",
@@ -174,7 +174,7 @@ const QUESTIONS = [
   {
     name: "q7",
     type: "radio",
-    question: "把愛車送交保修，你會希望可以觀看養護的過程嗎？",
+    question: "把愛車送交保養，你會希望可以觀看養護的過程嗎？",
     options: [
       "最好可以旁觀，這樣更放心",
       "不想旁觀，我想待在客休室休息",
@@ -190,13 +190,13 @@ const QUESTIONS = [
   {
     name: "q9",
     type: "radio",
-    question: "愛車保養店裡等待時，你會在意客休室的環境舒適度嗎？",
+    question: "愛車在保養店裡等待時，你會在意客休室的環境舒適度嗎？",
     options: ["會在意，會影響我的保養體驗心情", "不太在意", "無所謂"],
   },
   {
     name: "q10",
     type: "radio",
-    question: "你認為維修保養提供的預約時間方便性重要嗎？",
+    question: "你認為保養維修提供的預約時間方便性重要嗎？",
     options: ["很重要", "不重要", "無所謂"],
   },
   {
@@ -213,7 +213,7 @@ const QUESTIONS = [
     name: "q12",
     type: "radio",
     question:
-      "當汽車保修需要更換零件時，你願意多花一點錢在愛車上使用領導品牌產品嗎？",
+      "當汽車保養需要更換零件時，你願意多花一點錢在愛車上使用領導品牌產品嗎？",
     options: [
       "我願意，一分錢一分貨，原廠品質及售後才有保障",
       "我覺得副廠的產品價格較低，品質也不會差太多",
@@ -238,7 +238,7 @@ const QUESTIONS = [
         name: "phone",
         question: "手機",
         type: "text",
-        hint: "電話請輸入半形數字",
+        hint: "請填入正確的手機號碼",
       },
       {
         name: "email",
@@ -257,6 +257,10 @@ const Container = styled.div`
   background-position: bottom;
   background-size: cover;
   position: relative;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  text-size-adjust: none;
   @media screen and (min-width: 768px) {
     ${(props) => props.step === 0 && `background-image: url(${Background});`}
   }
@@ -264,9 +268,9 @@ const Container = styled.div`
 
 const LightBoxLink = styled.span`
   position: absolute;
-  transform: translate(-50%, 0);
-  bottom: 16px;
-  left: 50%;
+  bottom: 20px;
+  left: 100vw;
+  transform: translate(calc(-100% - 20px), 0);
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 400;
@@ -275,10 +279,19 @@ const LightBoxLink = styled.span`
   text-decoration-line: underline;
   color: #ffffff;
   z-index: 100;
+  width: fit-content;
+  ${(props) =>
+    props.step !== 0 &&
+    `
+    position: fixed;
+    `}
   @media screen and (min-width: 768px) {
     font-size: 14px;
     line-height: 20px;
     bottom: 52px;
+    position: fixed;
+    left: 100vw;
+    transform: translate(calc(-100% - 52px), 0);
   }
   &:hover {
     cursor: pointer;
@@ -287,7 +300,7 @@ const LightBoxLink = styled.span`
 
 const Mask = styled.div`
   width: ${(props) => props.width};
-  height: 100vh;
+  height: 100%;
   position: fixed;
   top: 0;
   right: 0;
@@ -317,6 +330,22 @@ const ButtonContainer = styled.div`
   }
 `;
 
+const Hint = styled.p`
+  font-size: 12px;
+  line-height: 18px;
+  color: #ffffff;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 100;
+  position: relative;
+  transform: translate(0, 20px);
+  @media screen and (min-width: 768px) {
+    transform: translate(0, 40px);
+    font-size: 16px;
+    line-height: 24px;
+  }
+`;
+
 function App() {
   const [hasSubmit, setHasSubmit] = useState(false);
   const [canClickNext, setCanClickNext] = useState(false);
@@ -340,9 +369,11 @@ function App() {
         all: !Object.values(answers).includes(""),
       });
       if (
-        !Object.values(validation).includes(false) &&
+        validatePhone(answers.phone) &&
+        validateEmail(answers.email) &&
         Object.values(answers.fleet).includes(true) &&
-        agree
+        agree &&
+        !Object.values(answers).includes("")
       ) {
         setCanClickNext(true);
       } else {
@@ -426,6 +457,19 @@ function App() {
     if (step === 16 && !hasSubmit) handleSubmit();
   }, [step]);
 
+  function validatePhone(value) {
+    let isValid = true;
+    if (!value) return false;
+    if (!/^[0-9]*$/.test(value) || value.length !== 10) isValid = false;
+    setValidation({ ...validation, phone: isValid });
+    return isValid;
+  }
+  function validateEmail(value) {
+    const regex = /\S+@\S+\.\S+/;
+    setValidation({ ...validation, email: regex.test(value) });
+    return regex.test(value);
+  }
+
   return (
     <Container step={step}>
       {step !== 0 && <Mask width={`${(100 / 16) * (16 - step)}vw`} />}
@@ -443,6 +487,8 @@ function App() {
               setShowLightBox={setShowLightBox}
               validation={validation}
               setValidation={setValidation}
+              validatePhone={validatePhone}
+              validateEmail={validateEmail}
             />
           )}
           {step === 15 && (
@@ -454,14 +500,17 @@ function App() {
               />
             </div>
           )}
+          {step === 1 && (
+            <Hint>*所有選項皆為必填，送出前請確認您是否填寫完畢？</Hint>
+          )}
           <ButtonContainer>
-            {step !== 0 && 1 < step && step < 13 && (
+            {step !== 0 && 1 < step && step < 15 && (
               <PrimaryButton
                 title='上一題'
                 handleClick={() => setStep(step - 1)}
               />
             )}
-            {step !== 0 && step < 13 && (
+            {step !== 0 && step < 15 && (
               <PrimaryButton
                 title='下一題'
                 handleClick={() => {
@@ -470,7 +519,7 @@ function App() {
                 disabled={!canClickNext}
               />
             )}
-            {step >= 13 && (
+            {step >= 15 && (
               <PrimaryButton
                 title='確認送出'
                 handleClick={() => {
@@ -485,6 +534,7 @@ function App() {
       {!hasSubmit && (
         <>
           <LightBoxLink
+            step={step}
             onClick={() => setShowLightBox(true)}
             ref={lightBoxLinkRef}
           >

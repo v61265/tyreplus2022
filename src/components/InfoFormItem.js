@@ -8,8 +8,8 @@ const Text = styled.input`
   font-family: "Noto Sans TC";
   font-style: normal;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 17px;
+  font-size: 16px;
+  line-height: 21px;
   color: #009944;
   padding: 0 8px;
   :focus {
