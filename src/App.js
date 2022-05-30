@@ -261,7 +261,7 @@ const Container = styled.div`
   -moz-text-size-adjust: none;
   -ms-text-size-adjust: none;
   text-size-adjust: none;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 769px) {
     ${(props) => props.step === 0 && `background-image: url(${Background});`}
   }
 `;
