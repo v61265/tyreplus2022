@@ -10,6 +10,13 @@ import Agreement from "./components/Agreement";
 import PrimaryButton from "./components/PrimaryButton";
 import Success from "./components/Success";
 
+// GA
+import ReactGA from "react-ga";
+ReactGA.initialize("UA-83609754-1", {
+  debug: true,
+});
+ReactGA.pageview("/campaigns/tyreplus-2022");
+
 const QUESTIONS = [
   {
     name: "q0",
@@ -535,7 +542,10 @@ function App() {
         <>
           <LightBoxLink
             step={step}
-            onClick={() => setShowLightBox(true)}
+            onClick={() => {
+              setShowLightBox(true);
+              window.scrollTo(0, 0);
+            }}
             ref={lightBoxLinkRef}
           >
             活動辦法與個資說明

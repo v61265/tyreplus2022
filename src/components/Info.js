@@ -58,10 +58,6 @@ const QuestionRow = styled.div`
 const QuestionTitle = styled.div`
   min-width: 104px;
   margin-bottom: 10px;
-  li span {
-    position: relative;
-    left: -10px;
-  }
   ${(props) => {
     if (props.title === "月均營業額") return "margin-right: 24px;";
   }}
