@@ -16,6 +16,7 @@ ReactGA.initialize("UA-83609754-1", {
   debug: true,
 });
 ReactGA.pageview("/campaigns/tyreplus-2022");
+ReactGA.ga("send", "pageview", "/campaigns/tyreplus-2022");
 
 const QUESTIONS = [
   {
@@ -367,6 +368,9 @@ function App() {
     phone: true,
     all: false,
   });
+  const [stage, setStage] = useState(1);
+  const DEADLINE_FIRST = new Date(2022, 5, 9, 3);
+  const DEADLINE_SECOND = new Date(2022, 5, 10, 3);
 
   useEffect(() => {
     if (!step || step > 15) return;
@@ -434,6 +438,9 @@ function App() {
       }
     });
     setAnswers(emptyAnswer);
+
+    if (new Date() > DEADLINE_FIRST) setStage(2);
+    if (new Date() > DEADLINE_SECOND) setStage(3);
   }, []);
 
   async function handleSubmit() {
@@ -481,7 +488,7 @@ function App() {
     <Container step={step}>
       {step !== 0 && <Mask width={`${(100 / 16) * (16 - step)}vw`} />}
       <Header />
-      {step === 0 && !hasSubmit && <Landing setStep={setStep} />}
+      {step === 0 && !hasSubmit && <Landing setStep={setStep} stage={stage} />}
       {step !== 0 && step <= 15 && !hasSubmit && (
         <>
           {step !== 0 && (
