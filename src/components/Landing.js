@@ -83,14 +83,14 @@ const LandingDescSecond = styled.p`
   margin-left: 20px;
   margin-right: 20px;
   @media screen and (min-width: 768px) {
-    font-size: 40px;
-    line-height: 58px;
+    font-size: 28px;
+    line-height: 42px;
     margin-top: 28px;
     margin-bottom: 40px;
   }
 `;
 
-export default function Landing({ setStep, stage }) {
+export default function Landing({ setStep, stage, handleClickWinners }) {
   function handleClickStart() {
     setStep(1);
   }
@@ -144,6 +144,19 @@ export default function Landing({ setStep, stage }) {
             </LandingDescSecond>
             <ButtonWrapper>
               <PrimaryButton title='查看得獎名單' disabled={true} />
+            </ButtonWrapper>
+          </>
+        )}
+        {stage === 3 && (
+          <>
+            <LandingDescSecond>
+              本問卷調查已結束，感謝參與滿意度大挑戰 !
+            </LandingDescSecond>
+            <ButtonWrapper>
+              <PrimaryButton
+                title='查看得獎名單'
+                handleClick={handleClickWinners}
+              />
             </ButtonWrapper>
           </>
         )}

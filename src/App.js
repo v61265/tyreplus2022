@@ -9,6 +9,9 @@ import appendSpreadsheet from "./utils/googlesheets";
 import Agreement from "./components/Agreement";
 import PrimaryButton from "./components/PrimaryButton";
 import Success from "./components/Success";
+import Winners from "./components/Winners";
+
+import PartTwo from "./components/PartTwo";
 
 // GA
 import ReactGA from "react-ga";
@@ -258,6 +261,19 @@ const QUESTIONS = [
   },
 ];
 
+const WINNERS = [
+  "黃海華  0920-XXX-775",
+  "陳欽輝  0932-XXX-585",
+  "鄭天來  0929-XXX-888",
+  "黃資城  0933-XXX-290",
+  "彭博晧  0900-XXX-106",
+  "張亦杰  0909-XXX-327",
+  "陳正弘  0939-XXX-538",
+  "黃泰源  0909-XXX-111",
+  "童閩浩  0988-XXX-849",
+  "楊旭淵  0916-XXX-877",
+];
+
 const Container = styled.div`
   background: rgba(0, 153, 68, 1);
   width: 100vw;
@@ -270,7 +286,10 @@ const Container = styled.div`
   -ms-text-size-adjust: none;
   text-size-adjust: none;
   @media screen and (min-width: 769px) {
-    ${(props) => props.step === 0 && `background-image: url(${Background});`}
+    ${(props) =>
+      props.step === 0 &&
+      !props.showWinners &&
+      `background-image: url(${Background});`}
   }
 `;
 
@@ -369,8 +388,9 @@ function App() {
     all: false,
   });
   const [stage, setStage] = useState(1);
-  const DEADLINE_FIRST = new Date(2022, 5, 9, 3);
-  const DEADLINE_SECOND = new Date(2022, 5, 10, 3);
+  const [showWinners, setShowWinners] = useState(false);
+  const DEADLINE_FIRST = new Date(2022, 5, 13, 0);
+  const DEADLINE_SECOND = new Date(2022, 5, 15, 0);
 
   useEffect(() => {
     if (!step || step > 15) return;
@@ -484,92 +504,108 @@ function App() {
     return regex.test(value);
   }
 
+  function handleClickWinners() {
+    setShowWinners(true);
+  }
+
   return (
-    <Container step={step}>
-      {step !== 0 && <Mask width={`${(100 / 16) * (16 - step)}vw`} />}
-      <Header />
-      {step === 0 && !hasSubmit && <Landing setStep={setStep} stage={stage} />}
-      {step !== 0 && step <= 15 && !hasSubmit && (
-        <>
-          {step !== 0 && (
-            <Form
-              step={step}
+    <>
+      {false && (
+        <Container step={step} showWinners={showWinners}>
+          {step !== 0 && <Mask width={`${(100 / 16) * (16 - step)}vw`} />}
+          <Header />
+          {step === 0 && !hasSubmit && !showWinners && (
+            <Landing
               setStep={setStep}
-              questions={QUESTIONS}
-              setAnswers={setAnswers}
-              answers={answers}
-              setShowLightBox={setShowLightBox}
-              validation={validation}
-              setValidation={setValidation}
-              validatePhone={validatePhone}
-              validateEmail={validateEmail}
+              stage={stage}
+              handleClickWinners={handleClickWinners}
             />
           )}
-          {step === 15 && (
-            <div ref={lightBoxLinkOnFormRef}>
-              <Agreement
-                agree={agree}
-                setAgree={setAgree}
-                openLightBox={() => setShowLightBox(true)}
-              />
-            </div>
+          {step !== 0 && step <= 15 && !hasSubmit && (
+            <>
+              {step !== 0 && (
+                <Form
+                  step={step}
+                  setStep={setStep}
+                  questions={QUESTIONS}
+                  setAnswers={setAnswers}
+                  answers={answers}
+                  setShowLightBox={setShowLightBox}
+                  validation={validation}
+                  setValidation={setValidation}
+                  validatePhone={validatePhone}
+                  validateEmail={validateEmail}
+                />
+              )}
+              {step === 15 && (
+                <div ref={lightBoxLinkOnFormRef}>
+                  <Agreement
+                    agree={agree}
+                    setAgree={setAgree}
+                    openLightBox={() => setShowLightBox(true)}
+                  />
+                </div>
+              )}
+              {step === 1 && (
+                <Hint>*所有選項皆為必填，送出前請確認您是否填寫完畢？</Hint>
+              )}
+              <ButtonContainer>
+                {step !== 0 && 1 < step && step < 15 && (
+                  <PrimaryButton
+                    title='上一題'
+                    handleClick={() => setStep(step - 1)}
+                  />
+                )}
+                {step !== 0 && step < 15 && (
+                  <PrimaryButton
+                    title='下一題'
+                    handleClick={() => {
+                      if (canClickNext) setStep(step + 1);
+                    }}
+                    disabled={!canClickNext}
+                  />
+                )}
+                {step >= 15 && (
+                  <PrimaryButton
+                    title='確認送出'
+                    handleClick={() => {
+                      if (canClickNext) setStep(step + 1);
+                    }}
+                    disabled={!canClickNext}
+                  />
+                )}
+              </ButtonContainer>
+            </>
           )}
-          {step === 1 && (
-            <Hint>*所有選項皆為必填，送出前請確認您是否填寫完畢？</Hint>
-          )}
-          <ButtonContainer>
-            {step !== 0 && 1 < step && step < 15 && (
-              <PrimaryButton
-                title='上一題'
-                handleClick={() => setStep(step - 1)}
-              />
-            )}
-            {step !== 0 && step < 15 && (
-              <PrimaryButton
-                title='下一題'
-                handleClick={() => {
-                  if (canClickNext) setStep(step + 1);
+          {!hasSubmit && (
+            <>
+              <LightBoxLink
+                step={step}
+                onClick={() => {
+                  setShowLightBox(true);
+                  window.scrollTo(0, 0);
                 }}
-                disabled={!canClickNext}
-              />
-            )}
-            {step >= 15 && (
-              <PrimaryButton
-                title='確認送出'
-                handleClick={() => {
-                  if (canClickNext) setStep(step + 1);
-                }}
-                disabled={!canClickNext}
-              />
-            )}
-          </ButtonContainer>
-        </>
-      )}
-      {!hasSubmit && (
-        <>
-          <LightBoxLink
-            step={step}
-            onClick={() => {
-              setShowLightBox(true);
-              window.scrollTo(0, 0);
-            }}
-            ref={lightBoxLinkRef}
-          >
-            活動辦法與個資說明
-          </LightBoxLink>
-          {showLightBox && (
-            <LightBox
-              setShowLightBox={setShowLightBox}
-              showLightBox={showLightBox}
-              lightBoxLinkRef={lightBoxLinkRef}
-              lightBoxLinkOnFormRef={lightBoxLinkOnFormRef}
-              width={`${step ? (100 / 16) * (16 - step) : 0}vw`}
-            />
+                ref={lightBoxLinkRef}
+              >
+                活動辦法與個資說明
+              </LightBoxLink>
+              {showLightBox && (
+                <LightBox
+                  setShowLightBox={setShowLightBox}
+                  showLightBox={showLightBox}
+                  lightBoxLinkRef={lightBoxLinkRef}
+                  lightBoxLinkOnFormRef={lightBoxLinkOnFormRef}
+                  width={`${step ? (100 / 16) * (16 - step) : 0}vw`}
+                />
+              )}
+            </>
           )}
-        </>
+          {hasSubmit && <Success />}
+          {showWinners && <Winners winners={WINNERS} />}
+        </Container>
       )}
-      {hasSubmit && <Success />}
-    </Container>
+      <PartTwo />
+    </>
   );
 }
 

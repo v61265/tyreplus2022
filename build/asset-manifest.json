@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "./static/css/main.4fd05d22.chunk.css",
+    "main.js": "./static/js/main.dfa1e21a.chunk.js",
+    "main.js.map": "./static/js/main.dfa1e21a.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.4fd2d204.js",
+    "runtime-main.js.map": "./static/js/runtime-main.4fd2d204.js.map",
+    "static/js/2.8616af07.chunk.js": "./static/js/2.8616af07.chunk.js",
+    "static/js/2.8616af07.chunk.js.map": "./static/js/2.8616af07.chunk.js.map",
+    "static/js/3.12e5212c.chunk.js": "./static/js/3.12e5212c.chunk.js",
+    "static/js/3.12e5212c.chunk.js.map": "./static/js/3.12e5212c.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/main.4fd05d22.chunk.css.map": "./static/css/main.4fd05d22.chunk.css.map",
+    "static/js/2.8616af07.chunk.js.LICENSE.txt": "./static/js/2.8616af07.chunk.js.LICENSE.txt",
+    "static/media/background.36c3c4d6.svg": "./static/media/background.36c3c4d6.svg",
+    "static/media/burger.079fb56b.svg": "./static/media/burger.079fb56b.svg",
+    "static/media/close.f3142b82.svg": "./static/media/close.f3142b82.svg",
+    "static/media/cover-mobile.c6ef8113.png": "./static/media/cover-mobile.c6ef8113.png",
+    "static/media/cover.6b4663b5.png": "./static/media/cover.6b4663b5.png",
+    "static/media/fb.7e786409.svg": "./static/media/fb.7e786409.svg",
+    "static/media/home-part2.b37d5710.svg": "./static/media/home-part2.b37d5710.svg",
+    "static/media/reserve.32312d72.jpg": "./static/media/reserve.32312d72.jpg",
+    "static/media/share-icon.e3021a77.svg": "./static/media/share-icon.e3021a77.svg",
+    "static/media/tyre-icon.77170806.svg": "./static/media/tyre-icon.77170806.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4fd2d204.js",
+    "static/js/2.8616af07.chunk.js",
+    "static/css/main.4fd05d22.chunk.css",
+    "static/js/main.dfa1e21a.chunk.js"
+  ]
+}
